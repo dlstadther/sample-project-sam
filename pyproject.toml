@@ -5,3 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+
+[dependency-groups]
+dev = [
+    "aws-sam-cli>=1.133.0",
+    "awscli>=1.37.21",
+]
