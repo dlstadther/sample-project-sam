@@ -1,0 +1,28 @@
+services:
+  sam:
+    build:
+      context: .
+      dockerfile: sam.dockerfile
+    command:
+      - uv
+      - run
+      - sam
+      - local
+      - start-api
+      # REQUIRED to allow AWS SAM container communicate with container running lambda code
+      - --container-host
+      - host.docker.internal
+      # REQUIRED to allow host system to connect into this container's server
+      - --host
+      - 0.0.0.0
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount source code to container's working directory.
+      - ./:/app
+      # AWS CLI credentials mount
+      - ~/.aws:/root/.aws
+      # Mount Host Docker for `sam` to build and run docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    # Make the working directory of the container match the mount location of the source code.
+    working_dir: /app
