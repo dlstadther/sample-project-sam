@@ -17,15 +17,16 @@ Globals: # https://docs.aws.amazon.com/serverless-application-model/latest/devel
       LogFormat: JSON
   Api:
     TracingEnabled: true
+
 Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function     # More info about Function Resource: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
     Properties:
-      Handler: app.lambda_handler
-      CodeUri: hello_world
+      FunctionName: HelloWorldFunction
       Description: Hello World function
+      PackageType: Image
       Architectures:
-      - x86_64
+        - x86_64
       Tracing: Active
       Events:
         HelloPath:
@@ -41,6 +42,9 @@ Resources:
           LOG_LEVEL: INFO
       Tags:
         LambdaPowertools: python
+    Metadata:
+      Dockerfile: ./hello_world/app.dockerfile
+      DockerContext: ./
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
@@ -49,12 +53,14 @@ Resources:
         Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
       ResourceQuery:
         Type: CLOUDFORMATION_STACK_1_0
+
   ApplicationInsightsMonitoring:
     Type: AWS::ApplicationInsights::Application
     Properties:
       ResourceGroupName:
         Ref: ApplicationResourceGroup
       AutoConfigurationEnabled: 'true'
+
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod environment for Hello World Function
@@ -63,4 +69,3 @@ Outputs:
   HelloWorldFunction:
     Description: Hello World Lambda Function ARN
     Value: !GetAtt HelloWorldFunction.Arn
-
