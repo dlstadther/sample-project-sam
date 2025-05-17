@@ -20,7 +20,8 @@ uv run sam init --runtime python3.12 --name sample_sam
 - [x] update `hello_world` lambda to use docker
 - [ ] create non-hello-world lambda with RestApiGateway
 - [ ] update template to use openapi.yaml
-- [ ] add tests
+- [x] add tests
   - including `ruff`, `mypy`, `cfn-lint`, `pytest`, `pytest-cov`
   - should use `tox`?
+- [ ] DRY test setup (`pyproject.toml` dev dependencies vs `tests/requirements.txt`; `test.dockerfile` vs local `uv`)
 - [ ] update template to use lambda alias (apigateway routes + permissions) (to allow for provisioned concurrency respect)

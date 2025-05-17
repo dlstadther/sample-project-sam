@@ -11,6 +11,7 @@ tracer = Tracer()
 logger = Logger()
 metrics = Metrics(namespace="Powertools")
 
+
 @app.get("/hello")
 @tracer.capture_method
 def hello():
@@ -22,6 +23,7 @@ def hello():
     # See: https://awslabs.github.io/aws-lambda-powertools-python/latest/core/logger/
     logger.info("Hello world API - HTTP 200")
     return {"message": "hello world"}
+
 
 # Enrich logging with contextual information from Lambda
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.API_GATEWAY_REST)

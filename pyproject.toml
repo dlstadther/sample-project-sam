@@ -4,10 +4,18 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "aws-lambda-powertools[tracer]>=3.12.0",
+    "requests>=2.32.3",
+]
 
 [dependency-groups]
 dev = [
     "aws-sam-cli>=1.133.0",
     "awscli>=1.37.21",
+    "cfn-lint>=1.22.7",
+    "mypy>=1.15.0",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.10",
 ]
